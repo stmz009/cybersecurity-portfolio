@@ -7,7 +7,8 @@ I compete in CTFs that mirror real blue-team work rather than general exploitati
 **17–21 September 2026** · Team **0xnobody** · **Ranked 837th of 5,637 teams (top 15%)** · 18/111 challenges solved · 1,625 points
 
 This one's entirely defensive — no exploitation, no gaining access to boxes. Every challenge is a case file: you're handed memory dumps, packet captures, or log sets and have to reconstruct what an attacker actually did, the same way I'd approach a real investigation at work. Over five days I worked through memory forensics, network traffic analysis, and malware analysis challenges with my team, finishing in the top 15% out of 5,600+ teams competing worldwide.
-[Certificate-SithuMinZin.pdf](https://github.com/user-attachments/files/35435313/Certificate-SithuMinZin.pdf)
+<img width="1152" height="815" alt="image" src="https://github.com/user-attachments/assets/a785583f-1444-46de-8aab-1c1171226f07" />
+
 
 ## Dragos CTF
 
