@@ -1,11 +1,10 @@
-# Sithu Min Zin — Cybersecurity Portfolio
+# Sithu Min Zin: Cybersecurity Portfolio
 
-**Threat Hunter & Digital Forensics Analyst** — based in Dublin, Ireland
+**Threat Hunter & Digital Forensics Analyst**, based in Dublin, Ireland
 Open to full-time Security Analyst, Threat Hunter, Detection Engineer and Blue Team roles.
 
- [LinkedIn](https://linkedin.com/in/sithu-min-zin-7a5893179) · [Medium](https://medium.com/@sithuminzin969)
+[LinkedIn](https://linkedin.com/in/sithu-min-zin-7a5893179) · [Medium](https://medium.com/@sithuminzin969)
 
----
 
 ## About
 
@@ -29,31 +28,30 @@ I work at the intersection of threat hunting, digital forensics, and detection e
 
 ### [Detecting Azure-Native C2 Techniques Through Behavioural Analysis and KQL-Based Threat Hunting](./projects/azure-native-c2-detection/)
 
-My MSc practicum research, built around a question that most organisations haven't fully answered yet: when an attacker hides their command-and-control traffic inside Microsoft's own trusted services — Graph API, Azure Blob Storage — rather than attacker-owned infrastructure, can Microsoft's own security stack actually catch it? I built a controlled Azure lab reproducing two real, documented APT techniques (APT28's Operation Graphite and POLONIUM's Blob Storage abuse), used machine learning to identify which behavioural features actually separated the attack from normal enterprise traffic, and converted those findings into working KQL detection rules in Microsoft Sentinel.
+My MSc practicum research, built around a question that most organisations haven't fully answered yet: when an attacker hides their command-and-control traffic inside Microsoft's own trusted services (Graph API, Azure Blob Storage) rather than attacker-owned infrastructure, can Microsoft's own security stack actually catch it? I built a controlled Azure lab reproducing two real, documented APT techniques (APT28's Operation Graphite and POLONIUM's Blob Storage abuse), used machine learning to identify which behavioural features actually separated the attack from normal enterprise traffic, and converted those findings into working KQL detection rules in Microsoft Sentinel.
 
-**The core finding:** neither simulated technique triggered a single alert from Sentinel's built-in analytics, despite full telemetry being collected the entire time. The gap wasn't visibility — it was correlation. That result is the whole reason the rest of the project exists.
+**The core finding:** neither simulated technique triggered a single alert from Sentinel's built-in analytics, despite full telemetry being collected the entire time. The gap wasn't visibility. It was correlation. That result is the whole reason the rest of the project exists.
 
 **Tools used:** Microsoft Sentinel · Microsoft Entra ID · Azure Blob Storage · Microsoft Graph API · KQL · Python · Isolation Forest · Random Forest · Sysmon
 
 → [Read the full write-up](./projects/azure-native-c2-detection/)
 
 ## CTF activity
+I take part in CTFs to keep developing my forensics and threat hunting skills, as part of building deeper, hands-on practice in incident analysis and malware analysis, alongside my MSc coursework and lab work. I'll keep this section updated as specific events and write-ups are completed.
 
-I'm currently active in CTF events this month as part of building deeper, hands-on practice in forensics and malware analysis, alongside my MSc coursework and lab work. I'll keep this section updated as specific events and write-ups are completed. *(Platform names and challenge write-ups to follow.)*
-
-→ [CTF activity log](./ctf/)
+→ [CTF activities](./ctf/)
 
 ## Certifications
 
-- CompTIA Cybersecurity Analyst (CySA+) — valid until April 2027
+- CompTIA Cybersecurity Analyst (CySA+) 
 - eLearnSecurity Certified Threat Hunting Professional (eCTHPv2)
-- Multi Cloud Red Team Analyst (MCRTA) — CWL
+- Multi Cloud Red Team Analyst (MCRTA), CWL
 
 ## Education
 
-- MSc in Cybersecurity, 2.1 — National College of Ireland, Dublin (2025–2026)
-- BSc (Hons) Computing, 1st Class Honours — Edinburgh Napier University, UK (2019–2022)
+- MSc in Cybersecurity, 2.1, National College of Ireland, Dublin (2025–2026)
+- BSc (Hons) Computing, 1st Class Honours, Edinburgh Napier University, UK (2019–2022)
 
 ## Contact
 
-Looking for a full-time Security Analyst, Threat Hunter, Detection Engineer, or Blue Team role in Dublin. Feel free to reach out directly — I'm happy to walk through any of the work above in more depth.
+Looking for a full-time Security Analyst, Threat Hunter, Detection Engineer, or Blue Team role in Dublin. Feel free to reach out directly. I'm happy to discuss any of this on a call.
