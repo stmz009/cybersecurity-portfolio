@@ -1,6 +1,6 @@
 # Sithu Min Zin: Cybersecurity Portfolio
 
-Aspiring Threat Hunter & Digital Forensics Analyst, based in Dublin, Ireland
+Aspiring Threat Hunter & Digital Forensics Analyst, based in Dublin, Ireland.
 Open to full-time Security Analyst, Threat Hunter, Detection Engineer and Blue Team roles.
 
 [LinkedIn](https://linkedin.com/in/sithu-min-zin-7a5893179) · [Medium](https://medium.com/@sithuminzin969)
