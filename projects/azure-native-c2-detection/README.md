@@ -90,6 +90,9 @@ This is lab research, not a production-ready detection suite, and I think that d
 - Both rules are explicitly behavioural indicators, not proof of compromise. A SOC analyst's judgement is still required to confirm a flagged event is genuinely malicious.
 
 
+
 ## What this demonstrates
 Sentinel collected full telemetry for both techniques, yet its built-in analytics never raised a single alert. That gap is the real story here, it isn't a visibility problem, it's a correlation problem, and closing it is what the two rules in this project actually do.
 Beyond that finding, this project followed the same workflow a real detection engineering or threat hunting team runs in production, just at lab scale and with full visibility into every decision along the way. I built the simulation from documented threat intelligence rather than an invented scenario, used machine learning to discover which behaviours actually mattered rather than treating it as a finished detector, and turned those findings into KQL rules an analyst can read and trust rather than a black-box model nobody can explain.
+
+The broader pattern worth taking away is that a single sign-in or a single Blob Storage request looks completely ordinary on its own. The malicious signal only shows up once you look at the sequence and timing across multiple events, not any one of them in isolation. That's why a platform can log everything correctly and still miss the attack, logging isn't the same as correlating. For a real SOC facing this kind of technique, the fix usually isn't a new detection product, it's recognising that the correlation logic often has to be written by hand, because the telemetry needed is already sitting there, just unused.
