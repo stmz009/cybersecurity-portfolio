@@ -62,12 +62,17 @@ The behavioural features that actually held up were converted into working KQL l
 
 **Blob Storage dead-drop C2**
 - [`blob-storage-c2-detection.kql`](./detection-rules/blob-storage-c2-detection.kql) groups `StorageBlobLogs` by caller IP over a five-minute window, then flags clients exceeding thresholds across total requests, PutBlob/GetBlob counts, and a calculated polling ratio. This isolated the three most suspicious five-minute windows in the dataset, including one with 48 requests from a single client.
+
+![Blob Storage detection query flagging three suspicious windows](./screenshots/blob-storage-detection-result.png)
+
 - [`blob-storage-c2-investigation.kql`](./detection-rules/blob-storage-c2-investigation.kql) takes a flagged window from the detection query and pulls every individual log entry inside it, surfacing 55 specific Blob operations for analyst review.
 
 **Graph API token-based C2**
-- [`graph-api-c2-detection.kql`](./detection-rules/graph-api-c2-detection.kql) correlates `SigninLogs` and `AADNonInteractiveUserSignInLogs`, looking for a specific sequence: a device-code authentication, followed by a `ResultType 50199` event for the same user and application within 30 seconds, followed by a successful non-interactive Graph sign-in within 120 seconds. Catching the full sequence rather than any single event is what made this rule meaningfully more reliable than flagging one authentication in isolation.
-- [`graph-api-c2-investigation.kql`](./detection-rules/graph-api-c2-investigation.kql) expands a flagged sequence into a full chronological timeline, surfacing IPs, client applications, user agents, and result codes for validation.
+- [`graph-api-c2-detection.kql`](./detection-rules/graph-api-c2-detection.kql) correlates `SigninLogs` and `AADNonInteractiveUserSignInLogs`, looking for a device-code authentication followed by a `ResultType 50199` event within 30 seconds, followed by a successful non-interactive Graph sign-in within 120 seconds.
 
+![Graph API detection query matching the device-code C2 sequence](./screenshots/graph-api-detection-result.png)
+
+- [`graph-api-c2-investigation.kql`](./detection-rules/graph-api-c2-investigation.kql) expands a flagged sequence into a full chronological timeline, surfacing IPs, client applications, user agents, and result codes for validation.
   
 ## Honest limitations
 
