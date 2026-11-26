@@ -1,0 +1,35 @@
+StorageBlobLogs
+| where OperationName in (
+    "PutBlob",
+    "GetBlob",
+    "ListBlobs",
+    "GetBlobProperties"
+)
+| summarize
+    TotalRequests = count(),
+    PutBlobCount = countif(OperationName == "PutBlob"),
+    GetBlobCount = countif(OperationName == "GetBlob"),
+    ListBlobCount = countif(OperationName == "ListBlobs"),
+    PropertyCheckCount = countif(OperationName == "GetBlobProperties"),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by CallerIpAddress, bin(TimeGenerated, 5m)
+| extend ListPollingRatio = todouble(ListBlobCount) / todouble(TotalRequests)
+| where TotalRequests >= 20
+| where PutBlobCount >= 3
+| where GetBlobCount >= 3
+| where ListBlobCount >= 10
+| where PropertyCheckCount >= 2
+| where ListPollingRatio >= 0.30
+| project
+    TimeGenerated,
+    CallerIpAddress,
+    TotalRequests,
+    PutBlobCount,
+    GetBlobCount,
+    ListBlobCount,
+    PropertyCheckCount,
+    ListPollingRatio,
+    FirstSeen,
+    LastSeen
+| order by TimeGenerated asc
