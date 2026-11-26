@@ -68,14 +68,14 @@ The behavioural features that actually held up were converted into working KQL l
 
 
 - [`blob-storage-c2-investigation.kql`](./detection-rules/blob-storage-c2-investigation.kql) takes a flagged window from the detection query and pulls every individual log entry inside it, surfacing 55 specific Blob operations for analyst review.
- <img width="1660" height="797" alt="image" src="https://github.com/user-attachments/assets/1e195463-d1bd-4541-ace9-8377490da51c" />
+ <img width="1560" height="797" alt="image" src="https://github.com/user-attachments/assets/1e195463-d1bd-4541-ace9-8377490da51c" />
 
 
 
 **Graph API token-based C2**
 - [`graph-api-c2-detection.kql`](./detection-rules/graph-api-c2-detection.kql) correlates `SigninLogs` and `AADNonInteractiveUserSignInLogs`, looking for a device-code authentication followed by a `ResultType 50199` event within 30 seconds, followed by a successful non-interactive Graph sign-in within 120 seconds.
 
-<img width="1627" height="587" alt="image" src="https://github.com/user-attachments/assets/b886898a-26c8-4981-a79a-8ddf9530e570" />
+<img width="1527" height="587" alt="image" src="https://github.com/user-attachments/assets/b886898a-26c8-4981-a79a-8ddf9530e570" />
 
 
 
