@@ -62,12 +62,14 @@ The behavioural features that actually held up were converted into working KQL l
 
 **Blob Storage dead-drop C2**
 - [`blob-storage-c2-detection.kql`](./detection-rules/blob-storage-c2-detection.kql) groups `StorageBlobLogs` by caller IP over a five-minute window, then flags clients exceeding thresholds across total requests, PutBlob/GetBlob counts, and a calculated polling ratio. This isolated the three most suspicious five-minute windows in the dataset, including one with 48 requests from a single client.
+<img width="1661" height="695" alt="image" src="https://github.com/user-attachments/assets/30c966d8-8f52-4f16-bf51-ca0ce4358dcc" />
 
-<img width="1627" height="587" alt="image" src="https://github.com/user-attachments/assets/5e2eaf3b-8e54-4783-81f8-46c45ad49e1d" />
 
 
 
 - [`blob-storage-c2-investigation.kql`](./detection-rules/blob-storage-c2-investigation.kql) takes a flagged window from the detection query and pulls every individual log entry inside it, surfacing 55 specific Blob operations for analyst review.
+ <img width="1660" height="797" alt="image" src="https://github.com/user-attachments/assets/1e195463-d1bd-4541-ace9-8377490da51c" />
+
 
 
 **Graph API token-based C2**
@@ -79,7 +81,7 @@ The behavioural features that actually held up were converted into working KQL l
 
 - [`graph-api-c2-investigation.kql`](./detection-rules/graph-api-c2-investigation.kql) expands a flagged sequence into a full chronological timeline, surfacing IPs, client applications, user agents, and result codes for validation.
 
-  <img width="1635" height="652" alt="image" border: 1px src="https://github.com/user-attachments/assets/0c8b5abf-b08b-4a02-a397-33ba187f2cd4" />
+  <img width="1635" height="652" alt="image" src="https://github.com/user-attachments/assets/0c8b5abf-b08b-4a02-a397-33ba187f2cd4" />
 
   
 ## Honest limitations
