@@ -1,1 +1,81 @@
+SigninLogs
+| where AuthenticationProtocol =~ "deviceCode"
+| where tostring(ResultType) == "0"
+| where ResourceDisplayName =~ "Microsoft Graph"
+| project
+    DeviceCodeTime = TimeGenerated,
+    UserPrincipalName,
+    AppDisplayName,
+    AppId,
+    DeviceCodeIP = IPAddress,
+    DeviceCodeClient = ClientAppUsed
+| join kind=inner (
+    SigninLogs
+    | where tostring(ResultType) == "50199"
+    | where ResourceDisplayName =~ "Microsoft Graph"
+    | project
+        InteractionTime = TimeGenerated,
+        UserPrincipalName,
+        AppId,
+        InteractionIP = IPAddress
+) on UserPrincipalName, AppId
+| where abs(datetime_diff("second", DeviceCodeTime, InteractionTime)) <= 30
+| join kind=inner (
+    AADNonInteractiveUserSignInLogs
+    | where ResourceDisplayName =~ "Microsoft Graph"
+    | where tostring(ResultType) == "0"
+    | project
+        GraphTime = TimeGenerated,
+        UserPrincipalName,
+        AppId,
+        GraphIP = IPAddress,
+        GraphClient = ClientAppUsed,
+        GraphUserAgent = UserAgent
+) on UserPrincipalName, AppId
+| where abs(datetime_diff("second", DeviceCodeTime, GraphTime)) <= 120
+| summarize
+    FirstObserved = min_of(
+        min(DeviceCodeTime),
+        min(InteractionTime),
+        min(GraphTime)
+    ),
+    LastObserved = max_of(
+        max(DeviceCodeTime),
+        max(InteractionTime),
+        max(GraphTime)
+    ),
+    DeviceCodeSuccesses = dcount(DeviceCodeTime),
+    InteractionEvents = dcount(InteractionTime),
+    GraphEvents = dcount(GraphTime),
+    DeviceCodeIPs = make_set(DeviceCodeIP),
+    InteractionIPs = make_set(InteractionIP),
+    GraphIPs = make_set(GraphIP),
+    ClientTypes = make_set(DeviceCodeClient),
+    GraphClients = make_set(GraphClient),
+    GraphUserAgents = make_set(GraphUserAgent)
+    by UserPrincipalName, AppDisplayName, AppId, bin(DeviceCodeTime, 5m)
+| extend ActivityDurationSeconds =
+    datetime_diff("second", LastObserved, FirstObserved)
+| where DeviceCodeSuccesses >= 1
+    and InteractionEvents >= 1
+    and GraphEvents >= 1
+| project
+    TimeGenerated = DeviceCodeTime,
+    UserPrincipalName,
+    AppDisplayName,
+    DeviceCodeSuccesses,
+    InteractionEvents,
+    GraphEvents,
+    ActivityDurationSeconds,
+    DeviceCodeIPs,
+    InteractionIPs,
+    GraphIPs,
+    ClientTypes,
+    GraphClients,
+    GraphUserAgents,
+    FirstObserved,
+    LastObserved
+| order by TimeGenerated asc
+
+
 
