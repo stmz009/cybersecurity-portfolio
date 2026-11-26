@@ -78,6 +78,9 @@ The behavioural features that actually held up were converted into working KQL l
 
 
 - [`graph-api-c2-investigation.kql`](./detection-rules/graph-api-c2-investigation.kql) expands a flagged sequence into a full chronological timeline, surfacing IPs, client applications, user agents, and result codes for validation.
+
+  <img width="1635" height="652" alt="image" src="https://github.com/user-attachments/assets/0c8b5abf-b08b-4a02-a397-33ba187f2cd4" />
+
   
 ## Honest limitations
 
