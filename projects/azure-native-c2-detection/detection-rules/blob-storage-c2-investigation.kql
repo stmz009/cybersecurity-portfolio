@@ -1,0 +1,14 @@
+StorageBlobLogs
+| where CallerIpAddress == "68.221.68.48:51540"
+| where TimeGenerated between (
+    datetime(2026-07-19 14:30:00) ..
+    datetime(2026-07-19 14:35:00)
+)
+| project
+    TimeGenerated,
+    OperationName,
+    CallerIpAddress,
+    Uri,
+    StatusCode,
+    AuthenticationType
+| order by TimeGenerated asc
