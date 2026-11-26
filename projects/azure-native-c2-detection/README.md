@@ -89,6 +89,7 @@ This is lab research, not a production-ready detection suite, and I think that d
 - Neither rule could be tested as a live, scheduled Sentinel analytic rule, due to permission limits on the student tenant. Detection was validated through query results and evidence, not automated alerting in production.
 - Both rules are explicitly behavioural indicators, not proof of compromise. A SOC analyst's judgement is still required to confirm a flagged event is genuinely malicious.
 
-## What this demonstrates
 
-This project followed the same workflow a real detection engineering or threat hunting team uses in production, just at lab scale and with full visibility into every decision along the way. I built the simulation from real, documented threat intelligence rather than a made-up scenario. I used machine learning the way it should be used here, as a tool to discover which behaviours actually matter, not as a finished detector on its own. And I turned those findings into KQL rules an analyst can actually read and trust, rather than a black-box model nobody can explain.
+## What this demonstrates
+Sentinel collected full telemetry for both techniques, yet its built-in analytics never raised a single alert. That gap is the real story here, it isn't a visibility problem, it's a correlation problem, and closing it is what the two rules in this project actually do.
+Beyond that finding, this project followed the same workflow a real detection engineering or threat hunting team runs in production, just at lab scale and with full visibility into every decision along the way. I built the simulation from documented threat intelligence rather than an invented scenario, used machine learning to discover which behaviours actually mattered rather than treating it as a finished detector, and turned those findings into KQL rules an analyst can read and trust rather than a black-box model nobody can explain.
