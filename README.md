@@ -37,7 +37,7 @@ My MSc practicum research, built around a question that most organisations haven
 → [Read the full write-up](./projects/azure-native-c2-detection/)
 
 ## CTF activity
-I take part in CTFs to keep developing my forensics and threat hunting skills, as part of building deeper, hands-on practice in incident analysis and malware analysis, alongside my MSc coursework and lab work. I'll keep this section updated as specific events and write-ups are completed.
+I take part in CTFs to keep developing my forensics and threat hunting skills, as part of building deeper, hands-on practice in incident analysis and malware analysis, alongside my MSc coursework and lab work.
 
 → [CTF activities](./ctf/)
 
