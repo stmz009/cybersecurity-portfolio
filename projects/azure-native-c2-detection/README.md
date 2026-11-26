@@ -55,13 +55,20 @@ The Blob Storage model caught every single malicious event in the test set (100%
 
 For the Graph API model, the highest-ranked feature on paper ("mobile/desktop client type") turned out to be a poor real-world indicator once I thought it through, a large organisation has thousands of staff authenticating from desktop clients every day, so using that alone would generate constant false positives. Recognising that and excluding it in favour of more genuinely diagnostic features (authentication timing, device code flows, Graph access patterns) was as important a part of the analysis as the model's raw output.
 
+
 ## From features to detection rules
 
-The behavioural features that actually held up were converted into working KQL logic in Sentinel:
+The behavioural features that actually held up were converted into working KQL logic in Sentinel. Each technique has two rules: a detection query that flags the suspicious window, and a follow-up investigation query that drills into exactly what happened inside it.
 
-- The **Blob Storage rule** groups `StorageBlobLogs` by caller IP and a five-minute window, then flags clients exceeding specific thresholds across total requests, PutBlob/GetBlob counts, and a calculated polling ratio. This successfully isolated the three most suspicious five-minute windows out of the full dataset, including one window with 48 requests from a single client in five minutes.
-- The **Graph API rule** correlates sign-in events across `SigninLogs` and `AADNonInteractiveUserSignInLogs`, looking for a specific sequence: a device-code authentication, followed by a `ResultType 50199` event for the same user and application within 30 seconds, followed by a successful non-interactive Graph sign-in within 120 seconds. Catching the full *sequence* rather than any single event is what made this rule meaningfully more reliable than flagging any one authentication in isolation.
+**Blob Storage dead-drop C2**
+- [`blob-storage-c2-detection.kql`](./detection-rules/blob-storage-c2-detection.kql) groups `StorageBlobLogs` by caller IP over a five-minute window, then flags clients exceeding thresholds across total requests, PutBlob/GetBlob counts, and a calculated polling ratio. This isolated the three most suspicious five-minute windows in the dataset, including one with 48 requests from a single client.
+- [`blob-storage-c2-investigation.kql`](./detection-rules/blob-storage-c2-investigation.kql) takes a flagged window from the detection query and pulls every individual log entry inside it, surfacing 55 specific Blob operations for analyst review.
 
+**Graph API token-based C2**
+- [`graph-api-c2-detection.kql`](./detection-rules/graph-api-c2-detection.kql) correlates `SigninLogs` and `AADNonInteractiveUserSignInLogs`, looking for a specific sequence: a device-code authentication, followed by a `ResultType 50199` event for the same user and application within 30 seconds, followed by a successful non-interactive Graph sign-in within 120 seconds. Catching the full sequence rather than any single event is what made this rule meaningfully more reliable than flagging one authentication in isolation.
+- [`graph-api-c2-investigation.kql`](./detection-rules/graph-api-c2-investigation.kql) expands a flagged sequence into a full chronological timeline, surfacing IPs, client applications, user agents, and result codes for validation.
+
+  
 ## Honest limitations
 
 This is lab research, not a production-ready detection suite, and I think that distinction matters more than overselling the results would:
