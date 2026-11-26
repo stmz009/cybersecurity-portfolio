@@ -63,15 +63,18 @@ The behavioural features that actually held up were converted into working KQL l
 **Blob Storage dead-drop C2**
 - [`blob-storage-c2-detection.kql`](./detection-rules/blob-storage-c2-detection.kql) groups `StorageBlobLogs` by caller IP over a five-minute window, then flags clients exceeding thresholds across total requests, PutBlob/GetBlob counts, and a calculated polling ratio. This isolated the three most suspicious five-minute windows in the dataset, including one with 48 requests from a single client.
 
-<img width="408" height="202" alt="image" src="https://github.com/user-attachments/assets/5e2eaf3b-8e54-4783-81f8-46c45ad49e1d" />
+<img width="1627" height="587" alt="image" src="https://github.com/user-attachments/assets/5e2eaf3b-8e54-4783-81f8-46c45ad49e1d" />
+
 
 
 - [`blob-storage-c2-investigation.kql`](./detection-rules/blob-storage-c2-investigation.kql) takes a flagged window from the detection query and pulls every individual log entry inside it, surfacing 55 specific Blob operations for analyst review.
+
 
 **Graph API token-based C2**
 - [`graph-api-c2-detection.kql`](./detection-rules/graph-api-c2-detection.kql) correlates `SigninLogs` and `AADNonInteractiveUserSignInLogs`, looking for a device-code authentication followed by a `ResultType 50199` event within 30 seconds, followed by a successful non-interactive Graph sign-in within 120 seconds.
 
 <img width="1627" height="587" alt="image" src="https://github.com/user-attachments/assets/b886898a-26c8-4981-a79a-8ddf9530e570" />
+
 
 
 - [`graph-api-c2-investigation.kql`](./detection-rules/graph-api-c2-investigation.kql) expands a flagged sequence into a full chronological timeline, surfacing IPs, client applications, user agents, and result codes for validation.
