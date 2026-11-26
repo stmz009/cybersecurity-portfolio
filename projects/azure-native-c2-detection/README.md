@@ -62,7 +62,8 @@ The behavioural features that actually held up were converted into working KQL l
 
 **Blob Storage dead-drop C2**
 - [`blob-storage-c2-detection.kql`](./detection-rules/blob-storage-c2-detection.kql) groups `StorageBlobLogs` by caller IP over a five-minute window, then flags clients exceeding thresholds across total requests, PutBlob/GetBlob counts, and a calculated polling ratio. This isolated the three most suspicious five-minute windows in the dataset, including one with 48 requests from a single client.
-<img width="1661" height="695" alt="image" src="https://github.com/user-attachments/assets/30c966d8-8f52-4f16-bf51-ca0ce4358dcc" />
+<img width="979" height="412" alt="image" src="https://github.com/user-attachments/assets/ad833009-8113-4d4f-a633-38f7b11ff452" />
+
 
 
 
