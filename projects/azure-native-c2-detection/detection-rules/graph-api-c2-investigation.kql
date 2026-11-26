@@ -1,0 +1,44 @@
+union
+(
+    SigninLogs
+    | where TimeGenerated between (
+        datetime(2026-07-17 22:38:00) ..
+        datetime(2026-07-17 22:43:00)
+    )
+    | where UserPrincipalName =~ "graph-lab-victim@cloudresearchlab.onmicrosoft.com"
+    | where AppDisplayName =~ "DeviceCode-TokenAbuse-Lab"
+    | project
+        TimeGenerated,
+        LogSource = "Interactive",
+        UserPrincipalName,
+        AppDisplayName,
+        ResourceDisplayName,
+        AuthenticationProtocol,
+        ResultType = tostring(ResultType),
+        ResultDescription,
+        ClientAppUsed,
+        IPAddress,
+        UserAgent
+),
+(
+    AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between (
+        datetime(2026-07-17 22:38:00) ..
+        datetime(2026-07-17 22:43:00)
+    )
+    | where UserPrincipalName =~ "graph-lab-victim@cloudresearchlab.onmicrosoft.com"
+    | where AppDisplayName =~ "DeviceCode-TokenAbuse-Lab"
+    | project
+        TimeGenerated,
+        LogSource = "Non-interactive",
+        UserPrincipalName,
+        AppDisplayName,
+        ResourceDisplayName,
+        AuthenticationProtocol,
+        ResultType = tostring(ResultType),
+        ResultDescription,
+        ClientAppUsed,
+        IPAddress,
+        UserAgent
+)
+| order by TimeGenerated asc
